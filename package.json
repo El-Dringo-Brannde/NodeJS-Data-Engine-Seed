@@ -1,0 +1,56 @@
+{
+   "name": "NodeJS Data Engine Seed ",
+   "version": "1.0.0",
+   "description": "NodeJS multiprocessing data engine",
+   "main": "index.js",
+   "scripts": {
+      "start": "node index.js -p 4000",
+      "dev": "nodemon index.js -p 4000",
+      "precommit": "npm run prettier",
+      "prepush": "npm run prettier && npm run linter",
+      "prettier": "node ./node_modules/prettier/bin-prettier.js --config .prettierrc.json  './src/**/*.js' --write",
+      "linter": "./node_modules/.bin/eslint ./src/**/ --ext .js,  --ignore-pattern 'node_modules/' --fix"
+   },
+   "repository": {
+      "type": "http",
+      "url": "https://github.com/El-Dringo-Brannde/NodeJS-Data-Engine-Seed.git"
+   },
+   "keywords": [
+      "NodeJS",
+      "ES7",
+      "Data Engine",
+      "Database",
+      "MongoDB"
+   ],
+   "engines": {
+      "node": "> 8.0.0 < 10.0.0"
+   },
+   "author": "Brandon Dring",
+   "license": "MIT",
+   "homepage": "https://github.com/El-Dringo-Brannde/NodeJS-Data-Engine-Seed",
+   "dependencies": {
+      "axios": "^0.18.0",
+      "chalk": "^2.4.1",
+      "command-line-args": "^5.0.2",
+      "express": "^4.16.3",
+      "lodash": "^4.17.10",
+      "moment": "^2.22.2",
+      "mongodb": "^3.0.10",
+      "mysql2": "^1.6.1",
+      "node-schedule": "^1.3.0",
+      "perfected-prototypes": "^2.1.1",
+      "pg": "^7.4.3",
+      "require-all": "^3.0.0",
+      "winston": "^3.0.0"
+   },
+   "devDependencies": {
+      "eslint": "^4.19.1",
+      "eslint-config-airbnb-base": "^13.0.0",
+      "eslint-config-prettier": "^2.9.0",
+      "eslint-plugin-import": "^2.13.0",
+      "eslint-plugin-prettier": "^2.6.2",
+      "husky": "^0.14.3",
+      "nodemon": "^1.17.5",
+      "prettier": "^1.14.0"
+   }
+}
