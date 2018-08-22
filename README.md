@@ -9,9 +9,27 @@ database support for [MySQL](https://www.npmjs.com/package/mysql2), [Postgres](h
 ## To do list: 
 - Add support for signalling when all jobs are done to trigger a flag in firebase or something similar to let others know.
 - Custom configuration on where the logs are stored.
+- Add status checking for a worker given a web server route
+- Refactor `SQL` and `Postgres` support
 
+
+## Starting
+By default the data engine runs only on the users local computer, to store the data on another server `NODE_ENV` globals must be passed in. But to run on local it's as simple as...
+
+1. `npm install` 
+2. `node index.js -p YOUR_PORT_HERE`
+
+Then, you're off collecting all the data you set up to collect. 
 
 ## How to use: 
+
+### Starting a worker from the web-server
+Within the project also comes with a miniature [express](https://www.npmjs.com/package/express) server. The purpose of this server is simply to start the worker up again before the scheduled time. If the engine has been set to run with this command `node index.js -p 4000` 
+
+Then, one could start a worker with this command from their URL. 
+`http://localhost:4000/start-job/<WORKER_NAME>
+
+This will spin off another NodeJS process and start the data collection for that worker. 
 
 ### Adding workers
 Each worker should be contained within the `./workers/` folder. Along with each worker having it's own folder for any utility files or dependencies it might have. The entry point is the `index.js` within the respective folder. Which might leave a directory structure like...
@@ -62,6 +80,10 @@ module.exports = class ProductCostAndRevenueController extends Databases {
     constructor() {
         super(defaultConfig);
     }
+
+    doWork(){
+        // data collection code here
+    }
     ...
 }
 ```
@@ -88,3 +110,15 @@ To log warnings:
 ```javascript 
 this.logWarning('some message here')
 ```
+
+### Scheduling collections
+Using the [node-schedule](https://www.npmjs.com/package/node-schedule) package one is able to schedule the recurrence of a job in a certain interval. Passed in via command line arguements, you can schedule jobs like 
+`NODE_ENV=prod node index.js -m 5 -h 1 -p 4000`
+Which will start the engine ever 1 hour and 5 minutes, more granularity can be added with `-day` and `-seconds`. 
+
+
+### Using database methods.
+By default, the data engine supports collecting data via `Mongo`, `Postgres`, and `SQL`. To use these methods to intereact with said database, one must first configure them in the config object of the worker. 
+
+All methods can be used by their respective names as soon as the worker is initialized. For instance, 
+to read all the documents within a MongoDB collection it's just `this.Mongo.read()`, similiarly with `SQL` it'd be `this.SQL.read()` and the same for `Postgres`
