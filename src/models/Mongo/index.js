@@ -20,6 +20,11 @@ module.exports = class mongoDB extends CRUD {
 		return this.createOne(inserting);
 	}
 
+   /**
+    * Look up a document by the _id field
+    * @param {string} id - The mongo ID of the document to look up 
+    * @returns {array} consisting of single document
+    */
 	async readById(id) {
 		const selector = {
 			_id: this.mongoID(id)
@@ -27,6 +32,10 @@ module.exports = class mongoDB extends CRUD {
 		return this.read(selector);
 	}
 
+   /**
+    * Get all documents in the default database and collection 
+    * @returns {array} All the documents 
+    */
 	async readAll() {
 		return this.read({});
 	}
