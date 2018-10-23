@@ -1,13 +1,11 @@
 {
-   "name": "NodeJS Data Engine Seed ",
+   "name": "nodejs-data-engine-seed",
    "version": "1.0.0",
    "description": "NodeJS multiprocessing data engine",
    "main": "index.js",
    "scripts": {
       "start": "node index.js -p 4000",
       "dev": "nodemon index.js -p 4000",
-      "precommit": "npm run prettier",
-      "prepush": "npm run prettier && npm run linter",
       "prettier": "node ./node_modules/prettier/bin-prettier.js --config .prettierrc.json  './src/**/*.js' --write",
       "linter": "./node_modules/.bin/eslint ./src/**/ --ext .js,  --ignore-pattern 'node_modules/' --fix"
    },
